@@ -93,10 +93,13 @@ schema QuantumCircuit:
         all m in measures { m.qubit in [q.id for q in qubits] }
         all m in measures { m.output in [cs.name for cs in classicalStores] }
 
-        # C1, C2, C8: Flow Constraints
         all f in flows {
             f.source in [initialNode.id, finalNode.id] + [g.id for g in gates] + [m.id for m in measures] + [r.id for r in resets] + [fk.id for fk in forkNodes] + [jn.id for jn in joinNodes]
         }, "C2 Violation: Flow source does not exist"
+        #para o target. Nao falhava em f2.k
+        all f in flows {
+            f.target in [initialNode.id, finalNode.id] + [g.id for g in gates] + [m.id for m in measures] + [r.id for r in resets] + [fk.id for fk in forkNodes] + [jn.id for jn in joinNodes]
+        }, "C2 Violation: Flow target does not exist"
 
         all f in flows { f.source != finalNode.id }, "C1 Violation: FinalNode cannot be a source"
         all f in flows { f.target != initialNode.id }, "C1 Violation: InitialNode cannot be a target"

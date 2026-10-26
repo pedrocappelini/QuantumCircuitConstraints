@@ -1,5 +1,5 @@
-import .metamodel
-import .constraints
+import ..metamodel
+import ..constraints
 
 teleportation = metamodel.QuantumCircuit {
     name = "Teleportation"
